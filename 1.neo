@@ -62,3 +62,8 @@ type strInt string | int
 fn max(s : strInt) strInt.(type) {
     result s
 }
+
+#----------------------generics----------------
+fn max[T any](a : Int, b : T) T {
+
+}
