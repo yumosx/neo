@@ -1,6 +1,24 @@
+#--------------------declare or define---------
 let a = 2;
 a = 1;
 
+let arr = [1, 2, 3, 4];
+let [a, b, c, d] = arr;
+let {a: b, c : d} = {a : 1, c : 2};
+
+#------------------statement-----------------
+if () {
+    
+} else {
+    
+}
+
+cond
+    (boolean expr) => {}
+    (boolean expr) => {}
+    (boolean expr) => {}
+
+#----------------------function--------------
 fn add(a : int, b : int) int {
     if (a > 0) {
         result a + b;
@@ -9,12 +27,11 @@ fn add(a : int, b : int) int {
     }
 }
 
-let arr = [1, 2, 3, 4];
-let [a, b, c, d] = arr;
+#-----------------------record---------------
 
 type A record {
     name : string;
-    age : int;
+    age  : int;
 }
 
 let a = A{name: 1, age : 2}
@@ -24,3 +41,24 @@ fn get(a : A) string {
 }
 
 A.get();
+
+type A record {
+     a, b, 
+     c, d, 
+     e, f, 
+     g : string
+}
+
+#----------------------interface---------------
+type Person interface {
+    eat()
+    drink()
+    play()
+}
+
+#----------------------union type--------------
+type strInt string | int
+
+fn max(s : strInt) strInt.(type) {
+    result s
+}
