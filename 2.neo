@@ -1,1 +1,3 @@
+let add = (x: int, y: int) => {result x + y};
 
+-----------lambda calucus--------------------
