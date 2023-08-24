@@ -77,6 +77,5 @@ fn max[T any](a : Int, b : T) T {
 }
 
 type error interface {
-
-
+    error() string
 }
