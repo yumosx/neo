@@ -60,7 +60,7 @@ type Animal interface {
     drink()
 }
 
-type Alan record impl Person {
+type Alan record :: Person {
     
 }
 
