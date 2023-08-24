@@ -60,6 +60,10 @@ type Animal interface {
     drink()
 }
 
+type Alan record impl Person {
+    
+}
+
 #----------------------union type--------------
 type strInt string | int
 
@@ -69,5 +73,10 @@ fn max(s : strInt) strInt.(type) {
 
 #----------------------generics----------------
 fn max[T any](a : Int, b : T) T {
+
+}
+
+type error interface {
+
 
 }
