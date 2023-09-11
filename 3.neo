@@ -1,7 +1,9 @@
 def a : Nat := 1
-def add (a:Nat) (b:Nat) : Nat := a + b
 
+def add (a:Nat) (b:Nat) : Nat := a + b
 
 structure Person where
   name : String
   age : Int
+
+let add : Nat -> Nat := fun x => y
