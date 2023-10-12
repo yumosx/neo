@@ -1,0 +1,13 @@
+(define add
+    (fn ([a Int 2] [b Int] [-> Int])
+        (+ a b)))
+
+(add 1 2)
+
+# 默认值的函数
+(add :a 1 :b 2)
+
+
+(define add
+    (fn ([a Int] [b (U Int Float)] [-> Int])
+      (+ a b)))
