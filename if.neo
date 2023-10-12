@@ -2,4 +2,4 @@
   (fn ([a Int] [b Int] [-> Int])
     (if (> a b) 
       (then a) 
-      (else b))))
+    (else b))))
