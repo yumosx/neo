@@ -1,4 +1,0 @@
-letStatemnet : "let" identifier "=" expr
-
-identifier : idnet
-expr : IntLiteral | identifier | Intliteral op identifier
