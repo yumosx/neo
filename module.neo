@@ -1,0 +1,11 @@
+(module A
+  (define add1 
+    (fn ([a Int] [-> Int])
+      (+ a 1))))
+
+#导入模块
+(module A
+  [import B [fn1 fn2]]
+  (define add2
+    (fn ([a Int] [-> Int])
+      (B.fn1 a))))
