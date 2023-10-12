@@ -1,9 +1,2 @@
-def a : Nat := 1
-
-def add (a:Nat) (b:Nat) : Nat := a + b
-
-structure Person where
-  name : String
-  age : Int
-
-let add : Nat -> Nat := fun x => y
+(define a 1)
+(declare ([a Int 2] [b Int 2]))
