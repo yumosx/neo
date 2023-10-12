@@ -1,5 +1,7 @@
 (define a 1)
 (declare ([a Int 2] [b Int 2]))
 
+(declare ([a (U Int Float)]))
+
 (define tuple [1 2 3 4])
 (define list {1 2 3 4})
