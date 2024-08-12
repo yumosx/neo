@@ -1,6 +1,6 @@
 //输出对应的参数信息
 probe sys_enter_execve {
-  out("%s", "hello, wrold");
+  out("%s", "hello, world");
 }
 
 //输出pid, cpu, comm
