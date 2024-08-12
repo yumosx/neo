@@ -4,7 +4,8 @@ probe sys_eneter_execve {
 }
 
 //每次加上对应的retarg
-probe sys_enter_execve {
+probe sys_enter_execve/retarg/ {
+  //类似于java的stream
   map[comm()] |> add(retarg) |> hist();
 }
 
