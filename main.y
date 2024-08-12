@@ -44,6 +44,6 @@ probe sys_enter_execve {
 }
 
 //如果需要挂在到多个跟踪点上
-probe [sys_enter_execve, sys_exit_execve] {
+probe(sys_enter_execve, sys_exit_execve) {
   out("%d\n", 1);
 }
