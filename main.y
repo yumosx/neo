@@ -7,6 +7,7 @@ probe sys_eneter_execve {
 probe sys_exit_read /retarg/{
   //每次加上对应的返回值参数
   map[comm()] += retarg;
+  //打印对应的直方图
   map[comm()] |> hist();
 }
 
