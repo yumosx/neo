@@ -3,15 +3,12 @@ probe sys_eneter_execve {
   out("%s", "hello, wrold");
 }
 
-//直接赋值
-probe sys_exit_read /retarg/{
-  //每次加上对应的返回值参数
-  map[comm()] += retarg;
-  //打印对应的直方图
-  map[comm()] |> hist();
+//每次加上对应的retarg
+probe sys_enter_execve {
+  map[comm()] |> add(retarg) |> hist();
 }
 
-//使用对应的方法
-probe sys_enter_execve{
-  map[comm()] |> count() |> hist();
+//计算每一个线程执行函数的次数, 并输出结果值
+probe sys_enter_execve {
+  map[comm()] |> add(1) |> hist();
 }
