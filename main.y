@@ -18,7 +18,7 @@ probe sys_enter_execve {
   out("%d", stack());
 }
 
-//条件表达式过滤
+//条件表达式过滤, 指定特定的进程进行执行
 probe sys_enter_execve /pid() == 134/ {
   out("%d", pid());
 }
@@ -34,3 +34,16 @@ probe sys_enter_execve {
   map[comm()] |> add(1) |> hist();
 }
 
+//基本的控制结构
+probe sys_enter_execve {
+  //变量
+  a = arg(1);
+  if (a > 1) {
+     out("%d", a);
+  }
+}
+
+//如果需要挂在到多个跟踪点上
+probe [sys_enter_execve, sys_exit_execve] {
+  out("%d\n", 1);
+}
