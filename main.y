@@ -1,6 +1,11 @@
 //输出对应的参数信息
-probe sys_eneter_execve {
+probe sys_enter_execve {
   out("%s", "hello, wrold");
+}
+
+//输出pid, cpu, comm
+probe sys_enter_execv {
+  out("comm: %s pid: %d cpu: %d", comm(), pid(), cpu());
 }
 
 //每次加上对应的retarg
