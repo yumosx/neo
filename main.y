@@ -18,6 +18,11 @@ probe sys_enter_execve {
   out("%d", stack());
 }
 
+//条件表达式过滤
+probe sys_enter_execve /pid() == 134/ {
+  out("%d", pid());
+}
+
 //每次加上对应的retarg
 probe sys_exit_read/retarg/ {
   //类似于java的方法调用
@@ -28,3 +33,4 @@ probe sys_exit_read/retarg/ {
 probe sys_enter_execve {
   map[comm()] |> add(1) |> hist();
 }
+
