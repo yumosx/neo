@@ -4,12 +4,22 @@ probe sys_enter_execve {
 }
 
 //输出pid, cpu, comm
-probe sys_enter_execv {
+probe sys_exit_read {
   out("comm: %s pid: %d cpu: %d", comm(), pid(), cpu());
 }
 
+//输出跟踪函数参数, 第一个参数
+probe sys_enter_execve {
+  out("arg:%s", arg(1));
+}
+
+//输出stack信息
+probe sys_enter_execve {
+  out("%d", stack());
+}
+
 //每次加上对应的retarg
-probe sys_enter_execve/retarg/ {
+probe sys_exit_read/retarg/ {
   //类似于java的方法调用
   map[comm()] |> add(retarg) |> hist();
 }
