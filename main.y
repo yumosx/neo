@@ -23,6 +23,11 @@ probe sys_enter_execve /pid() == 134/ {
   out("%d", pid());
 }
 
+//map的赋值用于收取特定线程的信息
+probe sys_enter_execve /comm() == "sh"/ {
+  map[pid()] = arg(1);
+}
+
 //每次加上对应的retarg
 probe sys_exit_read/retarg/ {
   //类似于java的方法调用
