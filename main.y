@@ -8,12 +8,12 @@ probe sys_exit_read {
   out("comm: %s pid: %d cpu: %d", comm(), pid(), cpu());
 }
 
-//输出跟踪函数参数, 第一个参数
+//输出跟踪函数的参数, arg(1, "128s");
 probe sys_enter_execve {
-  out("arg:%s", arg(1));
+  out("arg:%s", arg(1, "128s"));
 }
 
-//输出stack信息
+//输出对应的栈信息, stack是存储在map中的
 probe sys_enter_execve {
   out("%d", stack());
 }
@@ -23,9 +23,8 @@ probe sys_enter_execve /pid() == 134/ {
   out("%d", pid());
 }
 
-//map的赋值用于收取特定线程的信息
 probe sys_enter_execve /comm() == "sh"/ {
-  map[pid()] = arg(1);
+  map[pid()] = arg(1, "123s");
 }
 
 //每次加上对应的retarg
@@ -37,6 +36,11 @@ probe sys_exit_read/retarg/ {
 //计算每一个线程执行函数的次数, 并输出结果值
 probe sys_enter_execve {
   map[comm()] |> add(1) |> hist();
+}
+
+//获取cpu上面的线程分配情况
+probe sys_enter_execve {
+  map[cpu()] |> count();
 }
 
 //基本的控制结构
