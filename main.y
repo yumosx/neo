@@ -56,3 +56,8 @@ probe sys_enter_execve {
 probe(sys_enter_execve, sys_exit_execve) {
   out("%d\n", 1);
 }
+
+
+BEGIN {
+  out("pid comm cpu arg");
+}
