@@ -1,5 +1,5 @@
 BEGIN{
-    out("start a program");
+    puts("start a program");
 }
 
 filter tracepoint {
