@@ -2,7 +2,7 @@ BEGIN{
     puts("start a program");
 }
 
-filter tracepoint {
+filter eth0 {
   #const (
     first = packet[12, u8];
     udp   = packet[23, u16];
