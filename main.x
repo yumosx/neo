@@ -2,7 +2,7 @@ BEGIN{
     out("start a program");
 }
 
-filter {
+filter tracepoint {
   #const (
     first = packet[12, u8];
     udp   = packet[23, u16];
