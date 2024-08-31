@@ -9,6 +9,7 @@ use xdp;
 
 first?
     =arp -> pass;
-    =ip -> udp? =drop -> pass;
+    =ip -> udp? 
+            =drop -> pass;
     then -> puts("no match");
 end
