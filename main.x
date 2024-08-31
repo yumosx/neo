@@ -1,18 +1,14 @@
-BEGIN{
-    puts("start a program");
-}
+use xdp;
 
-filter eth0 {
-  #const (
+#const (
     first = packet[12, u8];
     udp   = packet[23, u16];
     arp   = 0x0806;
     ip    = 0x0800;
   );
 
-  case first:
+first?
     =arp -> pass;
-    =ip -> =udp -> drop;
+    =ip -> udp? =drop -> pass;
     then -> puts("no match");
-  end
-}
+end
