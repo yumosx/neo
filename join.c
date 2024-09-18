@@ -43,7 +43,7 @@ int main()
     ebpf_emit(code, MOV(BPF_REG_6, BPF_REG_10));
     ebpf_emit(code, ALU_IMM(BPF_ADD, BPF_REG_6, -24));
 
-    for (i = 0; i < 16; i++)
+    for (i = 1; i < 16; i++)
     {
         // read user to stack
         ebpf_emit(code, MOV(BPF_REG_1, BPF_REG_6));
