@@ -1,3 +1,20 @@
+int print_join_string(event_t* ev, void* call) {
+	const char* str = " "; 
+	char *arg;	
+	char* data = ev->data;
+
+	int i, argnum = 16, argsize = 1024;
+
+	for (i = 0; i < argnum; i++) {
+		arg = data + i * argsize;
+		
+		printf("%s", arg);
+	}
+	printf("\n");
+	return 0;
+}
+
+
 int main() {
 	node_t* node;
 	evhandler_t* evh;
