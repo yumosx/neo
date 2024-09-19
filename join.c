@@ -25,7 +25,7 @@ int main()
     ebpf_t *code = ebpf_new();
     evpipe_init(code->evp, 4 << 10);
     int argnum = 16, i;
-    int fd, max_entries = 1, ksize = 4, vsize = 8 + 16 * 1024;
+    int fd, max_entries = 1, ksize = 4, vsize = 8 + 2 * 1024;
 
     fd = bpf_map_create(BPF_MAP_TYPE_PERCPU_ARRAY, ksize, vsize, max_entries);
 
@@ -50,22 +50,21 @@ int main()
     //=================read arg0============================
     ebpf_emit_read_user(code, -8, 8, BPF_REG_7);
     ebpf_emit_read_user_string(code, BPF_REG_8, 16, -8, 1024);
-
     //=============================================
-    ebpf_emit(code, MOV(BPF_REG_6, BPF_REG_10));
-    ebpf_emit(code, ALU_IMM(BPF_ADD, BPF_REG_6, -24));
-
-    for (i = 1; i < 16; i++)
+	//bpftrace -e 'tracepoint:syscalls:sys_enter_execve { join(args->envp, '\n'); }'
+    for (i = 1; i < 2; i++)
     {
         // read user to stack
-        ebpf_emit(code, MOV(BPF_REG_1, BPF_REG_6));
+        ebpf_emit(code, MOV(BPF_REG_1, BPF_REG_10));
+        ebpf_emit(code, ALU_IMM(BPF_ADD, BPF_REG_1, -24));
         ebpf_emit(code, MOV_IMM(BPF_REG_2, 8));
         ebpf_emit(code, MOV(BPF_REG_3, BPF_REG_7));
         ebpf_emit(code, ALU_IMM(BPF_ADD, BPF_REG_3, i * 8));
         ebpf_emit(code, CALL(BPF_FUNC_probe_read_user));
 
         // read stack to user
-        ebpf_emit(code, LDXDW(BPF_REG_3, -24, BPF_REG_10));
+        ebpf_emit(code, MOV(BPF_REG_3, BPF_REG_10));
+        ebpf_emit(code, ALU_IMM(BPF_ADD, BPF_REG_3, -24));
         ebpf_emit(code, MOV(BPF_REG_1, BPF_REG_8));
         ebpf_emit(code, ALU_IMM(BPF_ADD, BPF_REG_1, 8 + i * 1024));
         ebpf_emit(code, MOV_IMM(BPF_REG_2, 1024));
@@ -80,7 +79,7 @@ int main()
     ebpf_emit_mapld(code, BPF_REG_2, code->evp->mapfd);
     ebpf_emit(code, MOV(BPF_REG_4, BPF_REG_8));
 
-    ebpf_emit(code, MOV_IMM(BPF_REG_5, 1032));
+    ebpf_emit(code, MOV_IMM(BPF_REG_5, 8+1024*2));
     ebpf_emit(code, CALL(BPF_FUNC_perf_event_output));
 
     ebpf_emit(code, MOV_IMM(BPF_REG_0, 0));
